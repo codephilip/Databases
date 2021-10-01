@@ -21,15 +21,16 @@ public class Homework1 extends DBTest {
 
     @Test
     /*
-     * Write a query in the string below that returns all artists that have more than one album
+     * Write a query in the string below that returns all artists that have more
+     * than one album
      */
-    void selectAllArtistsWithMoreThanOneAlbum(){
-        List<Map<String, Object>> results = executeSQL(
-                "SELECT * FROM artists");
+    void selectAllArtistsWithMoreThanOneAlbum() {
+        List<Map<String, Object>> results = executeSQL("SELECT * FROM artists");
 
         assertEquals(56, results.size());
         assertEquals("AC/DC", results.get(0).get("Name"));
-        print('Holla!');
+        assertEquals("AC/DC", results.get(0).get("Name"));
+
     }
 
     @Test
