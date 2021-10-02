@@ -15,7 +15,7 @@ public class Homework1 extends DBTest {
      * in their name
      */
     void selectArtistsWhoseNameHasAnAInIt() {
-        List<Map<String, Object>> results = executeSQL("SELECT * FROM artists WHERE artist.Name LIKE A% ");
+        List<Map<String, Object>> results = executeSQL("SELECT * FROM artists WHERE artist.Name LIKE 'A%' ");
         assertEquals(211, results.size());
     }
 
@@ -25,7 +25,8 @@ public class Homework1 extends DBTest {
      * than one album
      */
     void selectAllArtistsWithMoreThanOneAlbum() {
-        List<Map<String, Object>> results = executeSQL("SELECT * FROM artists ");
+        List<Map<String, Object>> results = executeSQL(
+                "SELECT * FROM artists COUNT(DISTINCT albums.AlbumId) as Albums HAVING Albums > 1 ");
 
         assertEquals(56, results.size());
         assertEquals("AC/DC", results.get(0).get("Name"));
