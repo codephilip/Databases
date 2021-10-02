@@ -15,7 +15,7 @@ public class Homework1 extends DBTest {
      * in their name
      */
     void selectArtistsWhoseNameHasAnAInIt() {
-        List<Map<String, Object>> results = executeSQL("SELECT * FROM artists HAVING artist.Name LIKE "A%" ");
+        List<Map<String, Object>> results = executeSQL("SELECT * FROM artists WhHERE artist.Name LIKE "A%" ");
         assertEquals(211, results.size());
     }
 
