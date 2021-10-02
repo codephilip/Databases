@@ -40,8 +40,8 @@ public class Homework1 extends DBTest {
      */
     void selectTheTrackAndAlbumAndArtistForAllTracksLongerThanSixMinutes() {
         List<Map<String, Object>> results = executeSQL(
-                "SELECT tracks.Name as TrackName, albums.Title as AlbumTitle, artists.Name as ArtistsName FROM tracks "
-                        + "-- NEED TO DO SOME JOINS");
+                "SELECT tracks.Name as TrackName, albums.Title as AlbumTitle, artists.Name as ArtistsName, SUM(tracks.Milliseconds) AS Tracklength FROM tracks "
+                        + "JOIN AlbumTitle on ArtistName HAVING Tracklength > 360000");
 
         assertEquals(623, results.size());
 
