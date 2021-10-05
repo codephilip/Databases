@@ -15,7 +15,7 @@ public class Homework1 extends DBTest {
      * in their name
      */
     void selectArtistsWhoseNameHasAnAInIt() {
-        List<Map<String, Object>> results = executeSQL("SELECT * FROM artists WHERE artists.Name LIKE 'A%'");
+        List<Map<String, Object>> results = executeSQL("SELECT * FROM artists WHERE artists.Name LIKE '%A%'");
         assertEquals(211, results.size());
     }
 
@@ -40,7 +40,13 @@ public class Homework1 extends DBTest {
      */
     void selectTheTrackAndAlbumAndArtistForAllTracksLongerThanSixMinutes() {
         List<Map<String, Object>> results = executeSQL(
-                "SELECT tracks.Name AS TrackName, artists.Name AS Artist, albums.Title AS AlbumTitle, SUM(tracks.Milliseconds) AS TrackLength FROM tracks JOIN albums on tracks.AlbumId = albums.AlbumId JOIN artists on albums.ArtistId = artists.ArtistId GROUP BY TrackName HAVING TrackLength > 360000"
+                "SELECT tracks.Name AS TrackName, artists.Name AS Artist, albums.Title AS AlbumTitle,\n" +
+                        "\n" +
+                        "       tracks.Milliseconds as TrackLength\n" +
+                        "FROM tracks\n" +
+                        "         JOIN albums on tracks.AlbumId = albums.AlbumId\n" +
+                        "         JOIN artists on albums.ArtistId = artists.ArtistId\n" +
+                        "WHERE TrackLength > 360000;"
         );
 
         assertEquals(623, results.size());

@@ -47,12 +47,11 @@ WHERE HireDate > (SELECT AVG(HireDate) FROM employees);
 EXPLAIN QUERY PLAN
 SELECT tracks.Name AS TrackName, artists.Name AS Artist, albums.Title AS AlbumTitle,
 
-       SUM(tracks.Milliseconds) as TrackLength
+       tracks.Milliseconds as TrackLength
 FROM tracks
          JOIN albums on tracks.AlbumId = albums.AlbumId
          JOIN artists on albums.ArtistId = artists.ArtistId
-GROUP BY TrackName
-HAVING TrackLength > 360000;
+WHERE TrackLength > 360000;
 
 EXPLAIN QUERY PLAN
 SELECT main.employees.FirstName as FirstName,

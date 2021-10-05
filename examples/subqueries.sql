@@ -20,7 +20,7 @@ WHERE tracks.AlbumId = albums.AlbumId) ;
 
 SELECT * FROM artists
 WHERE artists.Name LIKE 'A%';
-
+SELECT artists.Name, count(DISTINCT albums.AlbumId) as AlbumCount FROM artists JOIN albums ON artists.ArtistId = albums.ArtistId GROUP BY albums.ArtistId HAVING AlbumCount > 1;
 SELECT artists.Name, count(DISTINCT a.AlbumId) as AlbumCount FROM artists JOIN albums a ON artists.ArtistId = a.ArtistId GROUP BY a.ArtistId HAVING AlbumCount > 1;
 
 SELECT artists.Name, count(DISTINCT a.AlbumId) as AlbumCount, count(TrackId) AS TrackCount
@@ -32,6 +32,7 @@ HAVING AlbumCount > 2;
 
 SELECT artists.Name, count(DISTINCT a.AlbumId) as AlbumCount FROM artists JOIN albums a ON artists.ArtistId = a.ArtistId GROUP BY a.ArtistId HAVING AlbumCount > 1
 
+SELECT tracks.Name AS TrackName, artists.Name AS Artist, albums.Title AS AlbumTitle, SUM(tracks.Milliseconds) AS TrackLength FROM tracks JOIN albums on tracks.AlbumId = albums.AlbumId JOIN artists on albums.ArtistId = artists.ArtistId GROUP BY TrackName HAVING TrackLength > 360000;
 
 SELECT SUM(bytes)
 FROM tracks
