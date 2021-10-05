@@ -17,6 +17,21 @@ WHERE 10000000 > (SELECT SUM(bytes)
     FROM tracks
 WHERE tracks.AlbumId = albums.AlbumId) ;
 
+
+SELECT * FROM artists
+WHERE artists.Name LIKE 'A%';
+
+
+SELECT artists.Name, count(DISTINCT a.AlbumId) as AlbumCount, count(TrackId) AS TrackCount
+FROM artists
+    JOIN albums a ON artists.ArtistId = a.ArtistId
+    JOIN tracks t ON a.AlbumId = t.AlbumId
+GROUP BY a.ArtistId
+HAVING AlbumCount > 2;
+
+SELECT artists.Name, count(DISTINCT a.AlbumId) as AlbumCount FROM artists JOIN albums a ON artists.ArtistId = a.ArtistId GROUP BY a.ArtistId HAVING AlbumCount > 1
+
+
 SELECT SUM(bytes)
 FROM tracks
 WHERE tracks.AlbumId = 1;

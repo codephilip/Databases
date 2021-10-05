@@ -15,7 +15,7 @@ public class Homework1 extends DBTest {
      * in their name
      */
     void selectArtistsWhoseNameHasAnAInIt() {
-        List<Map<String, Object>> results = executeSQL("SELECT * FROM artists WHERE artist.Name LIKE 'A%' ");
+        List<Map<String, Object>> results = executeSQL("SELECT * FROM artists WHERE artists.Name LIKE 'A%'");
         assertEquals(211, results.size());
     }
 
@@ -26,7 +26,7 @@ public class Homework1 extends DBTest {
      */
     void selectAllArtistsWithMoreThanOneAlbum() {
         List<Map<String, Object>> results = executeSQL(
-                "SELECT * FROM artists COUNT(DISTINCT albums.AlbumId) AS Albums HAVING Albums > 1 ");
+                "SELECT artists.Name, count(DISTINCT a.AlbumId) as AlbumCount FROM artists JOIN albums a ON artists.ArtistId = a.ArtistId GROUP BY a.ArtistId HAVING AlbumCount > 1");
 
         assertEquals(56, results.size());
         assertEquals("AC/DC", results.get(0).get("Name"));
@@ -40,8 +40,8 @@ public class Homework1 extends DBTest {
      */
     void selectTheTrackAndAlbumAndArtistForAllTracksLongerThanSixMinutes() {
         List<Map<String, Object>> results = executeSQL(
-                "SELECT tracks.Name as TrackName, albums.Title as AlbumTitle, artists.Name as ArtistsName, SUM(tracks.Milliseconds) AS Tracklength FROM tracks "
-                        + "JOIN AlbumTitle on ArtistName HAVING Tracklength > 360000");
+                "SELECT tracks.Name AS TrackName, artists.Name AS Artist, albums.Title AS AlbumTitle, SUM(tracks.Milliseconds) AS TrackLength FROM tracks JOIN albums on tracks.AlbumId = albums.AlbumId JOIN artists on albums.ArtistId = artists.ArtistId GROUP BY TrackName HAVING TrackLength > 360000"
+        );
 
         assertEquals(623, results.size());
 

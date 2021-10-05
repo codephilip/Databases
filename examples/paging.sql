@@ -45,16 +45,14 @@ FROM employees
 WHERE HireDate > (SELECT AVG(HireDate) FROM employees);
 
 EXPLAIN QUERY PLAN
-SELECT artists.Name,
-       COUNT(tracks.TrackId) as Tracks,
-       COUNT(DISTINCT albums.AlbumId) as Albums,
-       SUM(tracks.Milliseconds) as Milliseconds
+SELECT tracks.Name AS TrackName, artists.Name AS Artist, albums.Title AS AlbumTitle,
+
+       SUM(tracks.Milliseconds) as TrackLength
 FROM tracks
          JOIN albums on tracks.AlbumId = albums.AlbumId
          JOIN artists on albums.ArtistId = artists.ArtistId
-WHERE tracks.Name LIKE "A%"
-GROUP BY albums.ArtistId
-HAVING Tracks > 2;
+GROUP BY TrackName
+HAVING TrackLength > 360000;
 
 EXPLAIN QUERY PLAN
 SELECT main.employees.FirstName as FirstName,
