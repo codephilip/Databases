@@ -21,6 +21,7 @@ WHERE tracks.AlbumId = albums.AlbumId) ;
 SELECT * FROM artists
 WHERE artists.Name LIKE 'A%';
 
+SELECT artists.Name, count(DISTINCT a.AlbumId) as AlbumCount FROM artists JOIN albums a ON artists.ArtistId = a.ArtistId GROUP BY a.ArtistId HAVING AlbumCount > 1;
 
 SELECT artists.Name, count(DISTINCT a.AlbumId) as AlbumCount, count(TrackId) AS TrackCount
 FROM artists
