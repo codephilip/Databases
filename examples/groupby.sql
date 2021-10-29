@@ -15,7 +15,7 @@ FROM tracks
 GROUP BY AlbumID;
 
 -- Select all AlbumID FKs from the tracks table
-SELECT AlbumID, COUNT(*) as TrackCount
+SELECT AlbumID , COUNT(*) as TrackCount
 FROM tracks
 GROUP BY AlbumID;
 
@@ -33,9 +33,17 @@ JOIN albums on tracks.AlbumId = albums.AlbumId
 GROUP BY tracks.AlbumID;
 
 -- Calculate run time of artists by summing the tracks
-SELECT artists.Name,
-       SUM(tracks.Milliseconds) as Milliseconds
-FROM tracks
+SELECT employees.LastName , employees.FirstName, employees.title,employees.ReportsTo, employees.EmployeeId
+FROM employees
+WHERE employees.ReportsTo = employees.EmployeeId
+GROUP BY employees.ReportsTo
+HAVING employees.FirstName LIKE '%STEVE%';
+--GROUP BY TrackNames;
+
+SELECT * FROM tracks WHERE TrackId > 10;
+CREATE INDEX idx_Sales
+    ON albums(AlbumId);
+
 JOIN albums on tracks.AlbumId = albums.AlbumId
 JOIN artists on albums.ArtistId = artists.ArtistId
 GROUP BY albums.ArtistId;

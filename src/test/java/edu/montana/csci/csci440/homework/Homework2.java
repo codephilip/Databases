@@ -16,7 +16,15 @@ public class Homework2 extends DBTest {
      */
     public void createTracksPlusView(){
         //TODO fill this in
-        executeDDL("CREATE VIEW tracksPlus");
+        executeDDL("CREATE VIEW tracksPlus AS\n" +
+                "SELECT artists.Name as artistName,\n" +
+                "           tracks.*,\n" +
+                "           albums.Title as albumTitle,\n" +
+                "           genres.Name as genreName\n" +
+                "    FROM tracks\n" +
+                "    JOIN albums ON tracks.AlbumId=albums.AlbumId\n" +
+                "    JOIN artists ON albums.ArtistId = artists.ArtistId\n" +
+                "    JOIN genres ON genres.GenreId = tracks.GenreId;");
 
         List<Map<String, Object>> results = executeSQL("SELECT * FROM tracksPlus ORDER BY TrackId");
         assertEquals(3503, results.size());
@@ -36,7 +44,11 @@ public class Homework2 extends DBTest {
      */
     public void createGrammyInfoTable(){
         //TODO fill these in
-        executeDDL("create table grammy_categories");
+        executeDDL("CREATE TABLE grammy_categories"
+
+
+
+                );
         executeDDL("create table grammy_infos");
 
         // TEST CODE

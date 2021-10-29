@@ -1,4 +1,13 @@
-
+--CREATE VIEW tracksPlus(){
+    SELECT artists.Name as ArtistName,
+           tracks.*,
+           albums.Title as AlbumTitle,
+           genres.Name as GenreName
+    FROM tracks
+    JOIN albums ON tracks.AlbumId=albums.AlbumId
+    JOIN artists ON albums.ArtistId = artists.ArtistId
+    JOIN genres ON genres.GenreId = tracks.GenreId;
+--}
 
 CREATE TABLE albums_bak (
     AlbumId  INTEGER,
