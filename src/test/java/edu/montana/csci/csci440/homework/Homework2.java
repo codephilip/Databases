@@ -44,12 +44,13 @@ public class Homework2 extends DBTest {
      */
     public void createGrammyInfoTable(){
         //TODO fill these in
-        executeDDL("CREATE TABLE grammy_categories"
-
-
-
+        executeDDL("CREATE TABLE grammy_categories\n" +
+            "GammyCategoryId INTEGER PRIMARY KEY,\n" +
+                "Name STRING);"
                 );
-        executeDDL("create table grammy_infos");
+        executeDDL("create table grammy_infos\n" +
+                    "ArtistId INTEGER, AlbumId INTEGER, TrackId INTEGER, GrammyCategoryId INTEGER, Status STRING,\n" +
+                    "FOREIGN KEY (GrammyCategoryId) REFERENCES grammy_categories(GrammyCategoryId);");
 
         // TEST CODE
         executeUpdate("INSERT INTO grammy_categories(Name) VALUES ('Greatest Ever');");
@@ -64,19 +65,7 @@ public class Homework2 extends DBTest {
         assertEquals(1, results.get(0).get("TrackId"));
         assertEquals(1, results.get(0).get("GrammyCategoryId"));
     }
-    @Test
-        /*
-         * Write a query in the string below that returns all artists that have more
-         * than one album
-         */
-    void selectAllArtistsWithMoreThanOneAlbum() {
-        List<Map<String, Object>> results = executeSQL(
-                "SELECT artists.Name, count(DISTINCT a.AlbumId) as AlbumCount FROM artists JOIN albums a ON artists.ArtistId = a.ArtistId GROUP BY a.ArtistId HAVING AlbumCount > 1");
 
-        assertEquals(56, results.size());
-        assertEquals("AC/DC", results.get(0).get("Name"));
-
-    }
     @Test
     /*
      * Bulk insert five categories of your choosing in the genres table
@@ -85,7 +74,12 @@ public class Homework2 extends DBTest {
         Integer before = (Integer) executeSQL("SELECT COUNT(*) as COUNT FROM genres").get(0).get("COUNT");
 
         //TODO fill this in
-        executeUpdate("INSERT");
+        executeUpdate("INSERT INTO genres (GenreId, Name) VALUES\n" +
+                                "26, 'Metal',\n" +
+                                "27, 'Blues',\n" +
+                                "28, 'Classical',\n" +
+                                "29, 'House',\n" +
+                                "30, 'Jazz');");
 
         Integer after = (Integer) executeSQL("SELECT COUNT(*) as COUNT FROM genres").get(0).get("COUNT");
         assertEquals(before + 5, after);
