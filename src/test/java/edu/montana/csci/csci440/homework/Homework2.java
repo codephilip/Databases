@@ -17,10 +17,10 @@ public class Homework2 extends DBTest {
     public void createTracksPlusView(){
         //TODO fill this in
         executeDDL("CREATE VIEW tracksPlus AS\n" +
-                "SELECT artists.Name as artistName,\n" +
+                "SELECT artists.Name AS artistName,\n" +
                 "           tracks.*,\n" +
-                "           albums.Title as albumTitle,\n" +
-                "           genres.Name as genreName\n" +
+                "           albums.Title AS albumTitle,\n" +
+                "           genres.Name AS genreName\n" +
                 "    FROM tracks\n" +
                 "    JOIN albums ON tracks.AlbumId=albums.AlbumId\n" +
                 "    JOIN artists ON albums.ArtistId = artists.ArtistId\n" +
@@ -64,7 +64,19 @@ public class Homework2 extends DBTest {
         assertEquals(1, results.get(0).get("TrackId"));
         assertEquals(1, results.get(0).get("GrammyCategoryId"));
     }
+    @Test
+        /*
+         * Write a query in the string below that returns all artists that have more
+         * than one album
+         */
+    void selectAllArtistsWithMoreThanOneAlbum() {
+        List<Map<String, Object>> results = executeSQL(
+                "SELECT artists.Name, count(DISTINCT a.AlbumId) as AlbumCount FROM artists JOIN albums a ON artists.ArtistId = a.ArtistId GROUP BY a.ArtistId HAVING AlbumCount > 1");
 
+        assertEquals(56, results.size());
+        assertEquals("AC/DC", results.get(0).get("Name"));
+
+    }
     @Test
     /*
      * Bulk insert five categories of your choosing in the genres table
