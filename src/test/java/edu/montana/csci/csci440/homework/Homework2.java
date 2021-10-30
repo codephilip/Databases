@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Homework2 extends DBTest {
 
@@ -17,10 +18,10 @@ public class Homework2 extends DBTest {
     public void createTracksPlusView(){
         //TODO fill this in
         executeDDL("CREATE VIEW tracksPlus AS\n" +
-                "SELECT artists.Name AS artistName,\n" +
+                "SELECT artists.Name AS ArtistName,\n" +
                 "           tracks.*,\n" +
-                "           albums.Title AS albumTitle,\n" +
-                "           genres.Name AS genreName\n" +
+                "           albums.Title AS AlbumTitle,\n" +
+                "           genres.Name AS GenreName\n" +
                 "    FROM tracks\n" +
                 "    JOIN albums ON tracks.AlbumId=albums.AlbumId\n" +
                 "    JOIN artists ON albums.ArtistId = artists.ArtistId\n" +
@@ -45,12 +46,12 @@ public class Homework2 extends DBTest {
     public void createGrammyInfoTable(){
         //TODO fill these in
         executeDDL("CREATE TABLE grammy_categories\n" +
-            "GammyCategoryId INTEGER PRIMARY KEY,\n" +
+            "(GrammyCategoryId INTEGER PRIMARY KEY,\n" +
                 "Name STRING);"
                 );
-        executeDDL("create table grammy_infos\n" +
-                    "ArtistId INTEGER, AlbumId INTEGER, TrackId INTEGER, GrammyCategoryId INTEGER, Status STRING,\n" +
-                    "FOREIGN KEY (GrammyCategoryId) REFERENCES grammy_categories(GrammyCategoryId);");
+        executeDDL("CREATE TABLE grammy_infos\n" +
+                    "(ArtistId INTEGER, AlbumId INTEGER, TrackId INTEGER, GrammyCategoryId INTEGER, Status STRING,\n" +
+                    "FOREIGN KEY (GrammyCategoryId) REFERENCES grammy_categories(GrammyCategoryId));");
 
         // TEST CODE
         executeUpdate("INSERT INTO grammy_categories(Name) VALUES ('Greatest Ever');");
@@ -71,15 +72,15 @@ public class Homework2 extends DBTest {
      * Bulk insert five categories of your choosing in the genres table
      */
     public void bulkInsertGenres(){
-        Integer before = (Integer) executeSQL("SELECT COUNT(*) as COUNT FROM genres").get(0).get("COUNT");
+        Integer before = (Integer) executeSQL("SELECT COUNT(*) AS COUNT FROM genres").get(0).get("COUNT");
 
         //TODO fill this in
         executeUpdate("INSERT INTO genres (GenreId, Name) VALUES\n" +
-                                "26, 'Metal',\n" +
-                                "27, 'Blues',\n" +
-                                "28, 'Classical',\n" +
-                                "29, 'House',\n" +
-                                "30, 'Jazz');");
+                                "(26, 'Metal'),\n" +
+                                "(27, 'Blues'),\n" +
+                                "(28, 'Classical'),\n" +
+                                "(29, 'House'),\n" +
+                                "(30, 'Jazz');");
 
         Integer after = (Integer) executeSQL("SELECT COUNT(*) as COUNT FROM genres").get(0).get("COUNT");
         assertEquals(before + 5, after);
