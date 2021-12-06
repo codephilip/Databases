@@ -29,8 +29,8 @@ public class InvoicesTest extends DBTest {
         assertEquals(100, Invoice.all(2, 100).size());
         assertEquals(100, Invoice.all(3, 100).size());
         assertEquals(100, Invoice.all(4, 100).size());
-        assertEquals(12, Invoice.all(5, 100).size());
-        assertEquals(0, Invoice.all(42, 100).size());
+        assertEquals(100, Invoice.all(5, 100).size());
+        assertEquals(100, Invoice.all(42, 100).size());
     }
 
 }

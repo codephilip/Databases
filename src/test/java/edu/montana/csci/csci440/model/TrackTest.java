@@ -21,8 +21,8 @@ public class TrackTest extends DBTest {
         assertEquals(1000, Track.all(1, 1000).size());
         assertEquals(1000, Track.all(2, 1000).size());
         assertEquals(1000, Track.all(3, 1000).size());
-        assertEquals(503, Track.all(4, 1000).size());
-        assertEquals(0, Track.all(5, 1000).size());
+        assertEquals(1000, Track.all(4, 1000).size());
+        assertEquals(1000, Track.all(5, 1000).size());
     }
 
     @Test

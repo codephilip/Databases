@@ -15,6 +15,7 @@ public class Model {
         throw new UnsupportedOperationException("Needs to be implemented");
     }
 
+
     public boolean update() {
         throw new UnsupportedOperationException("Needs to be implemented");
     }

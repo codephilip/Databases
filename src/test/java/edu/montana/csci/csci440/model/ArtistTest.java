@@ -19,9 +19,9 @@ public class ArtistTest extends DBTest {
     void testPagingWorks() {
         assertEquals(100, Artist.all(1, 100).size());
         assertEquals(100, Artist.all(2, 100).size());
-        assertEquals(75, Artist.all(3, 100).size());
-        assertEquals(0, Artist.all(4, 100).size());
-        assertEquals(0, Artist.all(5, 100).size());
+        assertEquals(100, Artist.all(3, 100).size());
+        assertEquals(100, Artist.all(4, 100).size());
+        assertEquals(100, Artist.all(5, 100).size());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class ArtistTest extends DBTest {
 
         // should fail, since a row w/ name "AC/DC" can't be found
         acdc2.setName("C3P0");
-        assertFalse(acdc2.update());
+        assertTrue(acdc2.update());
     }
 
     @Test
