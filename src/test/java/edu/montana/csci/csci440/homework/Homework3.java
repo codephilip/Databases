@@ -31,7 +31,7 @@ public class Homework3 extends DBTest {
         Track track2 = Track.find(2);
         Long track2InitialTime = track2.getMilliseconds();
 
-        try (Connection connection = DB.connect()) {
+        try(Connection connection = DB.connect()){
             connection.setAutoCommit(false);
             PreparedStatement subtract = connection.prepareStatement("UPDATE tracks SET Milliseconds = Milliseconds - ? WHERE TrackId = ?");
             subtract.setLong(1, 10);
@@ -55,7 +55,6 @@ public class Homework3 extends DBTest {
         assertEquals(track1.getMilliseconds(), track1InitialTime - 10);
         assertEquals(track2.getMilliseconds(), track2InitialTime + 10);
     }
-
 
     @Test
     /*
@@ -100,8 +99,9 @@ public class Homework3 extends DBTest {
                 "                                        = invoices.CustomerId JOIN invoice_items ON " +
                 "                                       invoices.InvoiceId = invoice_items.InvoiceId JOIN tracks " +
                 "                                       ON invoice_items.TrackId = tracks.TrackId JOIN genres ON " +
-                "                                       tracks.GenreId = genres.GenreId WHERE genres.Name = 'Rock')");
+                "                                       tracks.GenreId = genres.GenreId WHERE genres.Name = 'Rock')" );
         assertEquals(21, tracks.size());
     }
+
 
 }
