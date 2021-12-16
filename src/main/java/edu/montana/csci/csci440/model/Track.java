@@ -323,7 +323,6 @@ public class Track extends Model {
     @Override
     public boolean verify()
     {
-        // expect a name and album
         _errors.clear();
         if(name == null || name.equals(""))
             addError("No Title Found");
