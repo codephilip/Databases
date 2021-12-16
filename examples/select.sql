@@ -33,7 +33,7 @@ WHERE NOT AlbumId = 1 AND Milliseconds > 3 * 60 * 1000;
 
 select Name from tracks where Composer IS NULL;
 
-
+SELECT * FROM Tracks WHERE Milliseconds > 1000
 
 
 

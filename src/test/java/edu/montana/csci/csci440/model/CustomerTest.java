@@ -23,12 +23,12 @@ public class CustomerTest extends DBTest {
 
     @Test
     void testPagingWorks() {
-        assertEquals(25, Customer.all(0, 25).size());
+        assertEquals(25, Customer.all(1, 25).size());
         assertEquals(25, Customer.all(2, 25).size());
-        assertEquals(25, Customer.all(3, 25).size());
-        assertEquals(25, Customer.all(4, 25).size());
-        assertEquals(25, Customer.all(5, 25).size());
-        assertEquals(25, Customer.all(42, 25).size());
+        assertEquals(9, Customer.all(3, 25).size());
+        assertEquals(0, Customer.all(4, 25).size());
+        assertEquals(0, Customer.all(5, 25).size());
+        assertEquals(0, Customer.all(42, 25).size());
     }
 
 }

@@ -1,6 +1,7 @@
 package edu.montana.csci.csci440.model;
 
 import edu.montana.csci.csci440.util.DB;
+import edu.montana.csci.csci440.util.Web;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,11 +20,11 @@ public class Customer extends Model {
     private String email;
 
     public Employee getSupportRep() {
-         return Employee.find(supportRepId);
+        return Employee.find(supportRepId);
     }
 
     public List<Invoice> getInvoices(){
-        return Collections.emptyList();
+        return Invoice.getForCustomer(customerId);
     }
 
     private Customer(ResultSet results) throws SQLException {
@@ -31,6 +32,7 @@ public class Customer extends Model {
         lastName = results.getString("LastName");
         customerId = results.getLong("CustomerId");
         supportRepId = results.getLong("SupportRepId");
+        email = results.getString("Email");
     }
 
     public String getFirstName() {
@@ -60,9 +62,9 @@ public class Customer extends Model {
     public static List<Customer> all(int page, int count) {
         try (Connection conn = DB.connect();
              PreparedStatement stmt = conn.prepareStatement(
-                     "SELECT * FROM customers LIMIT ?"
-             )) {
+                     "SELECT * FROM customers LIMIT ? OFFSET ?")) {
             stmt.setInt(1, count);
+            stmt.setInt(2, (page - 1) * count);
             ResultSet results = stmt.executeQuery();
             List<Customer> resultList = new LinkedList<>();
             while (results.next()) {
@@ -76,7 +78,8 @@ public class Customer extends Model {
 
     public static Customer find(long customerId) {
         try (Connection conn = DB.connect();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE CustomerId=?")) {
+             PreparedStatement stmt = conn.prepareStatement(
+                     "SELECT * FROM customers WHERE CustomerId=?")) {
             stmt.setLong(1, customerId);
             ResultSet results = stmt.executeQuery();
             if (results.next()) {

@@ -1,6 +1,7 @@
 package edu.montana.csci.csci440.model;
 
 import edu.montana.csci.csci440.util.DB;
+import edu.montana.csci.csci440.util.Web;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -25,6 +26,7 @@ public class Invoice extends Model {
 
     private Invoice(ResultSet results) throws SQLException {
         billingAddress = results.getString("BillingAddress");
+        billingCity = results.getString("BillingCity");
         billingState = results.getString("BillingState");
         billingCountry = results.getString("BillingCountry");
         billingPostalCode = results.getString("BillingPostalCode");
@@ -33,9 +35,9 @@ public class Invoice extends Model {
     }
 
     public List<InvoiceItem> getInvoiceItems(){
-        //TODO implement
-        return Collections.emptyList();
+        return InvoiceItem.getForInvoice(invoiceId);
     }
+
     public Customer getCustomer() {
         return null;
     }
@@ -99,9 +101,9 @@ public class Invoice extends Model {
     public static List<Invoice> all(int page, int count) {
         try (Connection conn = DB.connect();
              PreparedStatement stmt = conn.prepareStatement(
-                     "SELECT * FROM invoices LIMIT ?"
-             )) {
+                     "SELECT * FROM invoices LIMIT ? OFFSET ?")) {
             stmt.setInt(1, count);
+            stmt.setInt(2, (page - 1) * count);
             ResultSet results = stmt.executeQuery();
             List<Invoice> resultList = new LinkedList<>();
             while (results.next()) {
@@ -115,7 +117,8 @@ public class Invoice extends Model {
 
     public static Invoice find(long invoiceId) {
         try (Connection conn = DB.connect();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM invoices WHERE InvoiceId=?")) {
+             PreparedStatement stmt = conn.prepareStatement(
+                     "SELECT * FROM invoices WHERE InvoiceId=?")) {
             stmt.setLong(1, invoiceId);
             ResultSet results = stmt.executeQuery();
             if (results.next()) {
@@ -127,4 +130,23 @@ public class Invoice extends Model {
             throw new RuntimeException(sqlException);
         }
     }
+
+    public static List<Invoice> getForCustomer(long customerId) {
+        try (Connection conn = DB.connect();
+             PreparedStatement stmt = conn.prepareStatement(
+                     "SELECT * FROM invoices WHERE CustomerId=? LIMIT ? OFFSET ?")) {
+            stmt.setLong(1, customerId);
+            stmt.setInt(2, Web.PAGE_SIZE);
+            stmt.setInt(3, (Web.getPage() - 1) * Web.PAGE_SIZE);
+            ResultSet results = stmt.executeQuery();
+            List<Invoice> resultList = new LinkedList<>();
+            while (results.next()) {
+                resultList.add(new Invoice(results));
+            }
+            return resultList;
+        } catch (SQLException sqlException) {
+            throw new RuntimeException(sqlException);
+        }
+    }
+
 }

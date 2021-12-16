@@ -20,8 +20,8 @@ public class AlbumTest extends DBTest {
         assertEquals(100, Album.all(1, 100).size());
         assertEquals(100, Album.all(2, 100).size());
         assertEquals(100, Album.all(3, 100).size());
-        assertEquals(100, Album.all(4, 100).size());
-        assertEquals(100, Album.all(5, 100).size());
+        assertEquals(47, Album.all(4, 100).size());
+        assertEquals(0, Album.all(5, 100).size());
     }
 
     @Test
@@ -30,6 +30,7 @@ public class AlbumTest extends DBTest {
 
         album.setTitle("Example");
         album.setArtist(Artist.find(1));
+
         System.out.println(album.getAlbumId());
         assertNull(album.getAlbumId());
         album.create();
