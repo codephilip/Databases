@@ -1,43 +1,5 @@
 # CSCI 440 - Database Systems
 
-This is the base upstream repository for CSCI 440: Database Systems  
-
-It contains the homework assignments, as well as the class project information.
-
-## Getting Your Private Copy
-
-Please use the following steps to create a *private* copy of this repo for your work:
-
-- Create a *private* repository in your own account by
-    - Going to <https://github.com/new>
-    - Enter the name `csci-440-fall2021-private`
-    - Select `Private`
-    - Navigate to the `Settings` -> `Manage Access` section
-    - Add `1cg` as a collaborator
-- Now run the following git commands, substituting your Github user name and NetID where required:
-```bash
-$ git clone https://github.com/msu/csci-440-fall2021.git csci-440-fall2021-private
-$ cd csci-440-fall2021-private
-$ git remote set-url origin git@github.com:<YOUR GITHUB USER NAME>/csci-440-fall2021-private.git
-$ git remote add upstream https://github.com/msu/csci-440-fall2021.git
-```
-
-Whew!  
-
-You now have a private copy of the repository on github.  You can push and pull to this repository and branch with the 
-standard `git pull` and `git push` commands.
-
-When you want to get an update from the public class repository you can run this command:
-
-```
-$ git pull upstream master
-```
-
-## Homeworks
-
-Homeworks can be found in the `src/test/java/edu/montana/csci/csci440/homework` directory
-and are given in the form of Tests.
-
 ## Project: Chinook Web App
 
 You will be implementing a web application against a SQL store, found in `/db/chinook.db`
