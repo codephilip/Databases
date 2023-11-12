@@ -1,34 +1,38 @@
-# CSCI 440 - Database Systems
+# Database Web Application Project
+This is a web application that interacts with a SQL database. 
 
-## Project: Chinook Web App
+Below are the project requirements:
 
-You will be implementing a web application against a SQL store, found in `/db/chinook.db`
+Your web application should work with a SQL database located at /db/chinook.db.
 
-The web application will be an open-ended project, but must include the following:
+The project is open-ended, but it must include the following features:
+- All entities from the chinook database should be accessible in the web application.
+- Implement CRUD operations for the Employee entity.
+- Create a hierarchical tree representation of the Employee structure.
+- Implement a track search with at least two search inputs.
+- Include at least one page that uses a GROUP BY clause for reporting purposes.
+- Integrate at least one Redis cache.
 
-* All entities in the chinookdb must be surfaced in the web application
-* The Employee entity must have all CRUD operations surfaced
-* A tree UI of the Employee hierarchy
-* Track search with at least two inputs must be implemented
-* At least one report-like page must exist that makes use of a `GROUP BY` clause
-* Implement at least one Redis cache
+## Project Evaluation
+Your project will be evaluated based on the following criteria:
 
-### Project Rubric
+### Automated Test Suite: 
+The project will undergo automated tests.
+### Recorded Demo: 
+Showcase the following functionalities:
 
-The project will be largely graded via automated tests.  The grading will be broken down along the following lines:
+Navigation of core database entities.
+CRUD operations on the Employee entity.
+Track search functionality.
+Implementation of paging in the Track main view.
+Presentation of a Group By based report page.
+### Code Quality and Redis Cache:
+Manual inspection will assess code quality and the effectiveness of the Redis cache.
 
-* 75.4% - The automated test suite (if the test suite passes, you are guaranteed to get a C on the project)
-* 15% - A recorded demo, demonstrating the following functionality
-  * Navigating the core entities in the database
-  * CRUD operations on the Employee entity
-  * Track search
-  * Paging implemented in the Track main view 
-  * A Group By based report page
-* 10% - Code quality and satisfaction of the Redis cache, determined by manual inspection
-* .1% - At least one use of htmx (https://htmx.org) in the application to add dynamic AJAX behavior
-
+Use of htmx (0.1%): Incorporate at least one instance of htmx (https://htmx.org) to add dynamic AJAX behavior to the application.
 ### Project Resources
+To help you with the project, you can refer to the following resources:
 
-* [Spark Java Docs](http://sparkjava.com/documentation)
-* [Velocity Templates Docs](https://velocity.apache.org/engine/2.2/user-guide.html#loops)
-* [Active JDBC Docs](https://javalite.io/activejdbc)
+Spark Java Docs
+Velocity Templates Docs
+Active JDBC Docs
